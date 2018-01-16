@@ -1,11 +1,12 @@
 package com.jimjade.controller;
 
 import com.google.gson.Gson;
-import org.joda.time.Interval;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 public class DateController {
@@ -13,23 +14,13 @@ public class DateController {
     @GetMapping("/countdown")
     public String getCountDown(){
         Gson s = new Gson();
-        Calendar today = Calendar.getInstance();
+        Calendar today = getToday();
         Calendar weddingday = getWeddingTime();
-
-        Interval interval = new Interval(today.getTime().getTime(), weddingday.getTime().getTime());
-        s.toJson(interval.toInterval());
-        return s.toString();
-    }
-
-    @GetMapping("/countdown/days")
-    public String getCountDownDays(){
-        Gson s = new Gson();
-        Calendar today = Calendar.getInstance();
-        Calendar weddingday = getWeddingTime();
-
-        long difference = today.getTime().getTime() -  weddingday.getTime().getTime();
-        long days = difference / (1000/60/60/24);
-        return s.toString();
+        long diffTime = weddingday.getTimeInMillis() - today.getTimeInMillis();
+        long diffDays = diffTime / (1000 * 60 * 60 * 24);
+        Map<String, Long> result = new HashMap<String, Long>();
+        result.put("days", diffDays);
+        return s.toJson(result);
     }
 
     private Calendar getWeddingTime(){
@@ -41,5 +32,13 @@ public class DateController {
         weddingday.set(Calendar.MINUTE, 0);
         weddingday.set(Calendar.SECOND, 0);
         return weddingday;
+    }
+
+    private Calendar getToday(){
+        Calendar today = Calendar.getInstance();
+        today.set(Calendar.HOUR, 1);
+        today.set(Calendar.MINUTE, 0);
+        today.set(Calendar.SECOND, 0);
+        return today;
     }
 }
