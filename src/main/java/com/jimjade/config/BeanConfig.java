@@ -1,4 +1,4 @@
-package com.jimjade.com.jimjade.config;
+package com.jimjade.config;
 
 import org.springframework.context.annotation.Configuration;
 
