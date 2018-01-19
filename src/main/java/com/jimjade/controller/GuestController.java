@@ -1,6 +1,7 @@
 package com.jimjade.controller;
 
 import com.google.gson.Gson;
+import com.jimjade.models.Guest;
 import com.jimjade.queries.JdbcGuests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +21,7 @@ public class GuestController {
     public String searchGuests(@RequestParam(name = "q", required = true) String query){
         Gson g = new Gson();
         JdbcGuests gdao = ctx.getBean(JdbcGuests.class);
-        List<String> l = gdao.queryGuests(query);
+        List<Guest> l = gdao.queryGuests(query);
         return g.toJson(l);
     }
 }
