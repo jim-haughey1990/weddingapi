@@ -13,4 +13,9 @@ public class JdbcGuests extends JdbcDaoSupport {
         query = "%" + query.toUpperCase() + "%";
         return getJdbcTemplate().query(sql, new Object[]{query, query}, new BeanPropertyRowMapper(Guest.class));
     }
+
+    public int saveGuest(Guest g){
+        String sql = "update wedding.guests set attending=? where user_id=?";
+        return getJdbcTemplate().update(sql, new Object[]{g.getAttending(), g.getUser_id()});
+    }
 }

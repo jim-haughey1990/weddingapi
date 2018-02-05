@@ -86,6 +86,23 @@ public class Guest {
 
     Integer child;
 
+    @Override
+    public String toString() {
+        return "Guest{" +
+                "title='" + title + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", address_1='" + address_1 + '\'' +
+                ", address_2='" + address_2 + '\'' +
+                ", address_3='" + address_3 + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", attending=" + attending +
+                ", user_id=" + user_id +
+                ", child=" + child +
+                '}';
+    }
+
     public Integer getAttending() {
         return attending;
     }
